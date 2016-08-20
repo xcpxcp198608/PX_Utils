@@ -2,6 +2,7 @@ package com.px.px_utils.ApkAutoUpdate.ApkDownloadAndInstall;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 /**
  * Created by Administrator on 2016/8/19.

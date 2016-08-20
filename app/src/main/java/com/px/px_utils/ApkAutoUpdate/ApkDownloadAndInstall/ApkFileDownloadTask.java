@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import com.px.px_utils.ApkAutoUpdate.Utils.FormatNumber;
 
@@ -26,7 +27,6 @@ public class ApkFileDownloadTask implements Runnable {
     private final int MSG_PROGRESS_CHANGED = 103;
     private final int MSG_COMPLETED_DOWNLOAD = 104;
     private final String apkFilePath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/PxDownload/";
-    private Context context;
     private DownloadSQLiteDao downloadSQLiteDao;
     private ApkFileDownloadInfo apkFileDownloadInfo;
     private static ApkFileDownloadStatusListener apkFileDownloadStatusListener;
@@ -34,7 +34,6 @@ public class ApkFileDownloadTask implements Runnable {
 
 
     public ApkFileDownloadTask(Context context ,ApkFileDownloadInfo apkFileDownloadInfo) {
-        this.context = context;
         this.apkFileDownloadInfo = apkFileDownloadInfo;
         downloadSQLiteDao = DownloadSQLiteDao.getInstance(context);
     }
@@ -74,11 +73,11 @@ public class ApkFileDownloadTask implements Runnable {
 
     @Override
     public void run() {
-        if(downloadSQLiteDao.isExists(apkFileDownloadInfo.getApkName() , apkFileDownloadInfo.getApkFileDownloadUrl())) {
-            apkFileDownloadInfo = downloadSQLiteDao.queryDataByApkName(apkFileDownloadInfo.getApkName() ,
+        if(downloadSQLiteDao.isExists(apkFileDownloadInfo.getApkFileName() , apkFileDownloadInfo.getApkFileDownloadUrl())) {
+            apkFileDownloadInfo = downloadSQLiteDao.queryDataByApkName(apkFileDownloadInfo.getApkFileName() ,
                     apkFileDownloadInfo.getApkFileDownloadUrl()).get(0);
         }
-
+        //Log.d("----px----",apkFileDownloadInfo.getApkFileDownloadUrl());
         HttpURLConnection httpURLConnection = null;
         RandomAccessFile randomAccessFile = null;
         InputStream inputStream = null;
@@ -118,6 +117,7 @@ public class ApkFileDownloadTask implements Runnable {
                 if(System.currentTimeMillis() - time > 1000) {
                     time = System.currentTimeMillis();
                     progress = (int)(completedPosition*100L/apkFileDownloadInfo.getApkFileSize());
+                    //Log.d("----px----",progress+"");
                     handler.obtainMessage(MSG_PROGRESS_CHANGED ,progress).sendToTarget();
                 }
                 if(isPauseDownload){
