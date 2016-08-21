@@ -1,4 +1,4 @@
-package com.px.px_utils.ApkAutoUpdate.Utils;
+package com.px.px_utils.Utils;
 
 
 import android.content.BroadcastReceiver;
@@ -10,12 +10,13 @@ import android.widget.Toast;
 
 /**
  *  需要添加权限:<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
- *  需要对广播进行注册：<receiver android:name=".NetworkStatusReceiver">
-                            <intent-filter>
-                            <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-                            </intent-filter>
-                    </receiver>
- *
+ *  Activity对广播进行注册：   private NetworkStatusReceiver networkStatusReceiver;
+ *                  onStart 方法内注册
+ *                       networkStatusReceiver = new NetworkStatusReceiver();
+ *                       IntentFilter intentFilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+ *                       registerReceiver(networkStatusReceiver ,intentFilter );
+ *                  onStop 方法内取消注册
+ *                      unregisterReceiver(networkStatusReceiver);
  */
 public class NetworkStatusReceiver extends BroadcastReceiver {
     @Override

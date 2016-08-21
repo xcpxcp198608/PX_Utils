@@ -1,6 +1,5 @@
-package com.px.px_utils.ApkAutoUpdate.Utils;
+package com.px.px_utils.Utils;
 
-import android.content.Context;
 import android.util.Log;
 
 import java.io.DataOutputStream;

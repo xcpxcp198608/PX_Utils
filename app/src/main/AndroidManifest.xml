@@ -8,7 +8,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/px_utils_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -20,8 +20,8 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".ApkAutoUpdate.ApkDownloadAndInstall.ApkAutoUpdateService" />
-        <receiver android:name=".ApkAutoUpdate.Utils.NetworkStatusReceiver">
+        <service android:name=".ApkDownloadAndInstall.ApkAutoUpdateService" />
+        <receiver android:name=".Utils.NetworkStatusReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>

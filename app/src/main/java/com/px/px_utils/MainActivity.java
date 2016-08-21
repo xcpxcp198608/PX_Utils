@@ -1,21 +1,23 @@
 package com.px.px_utils;
 
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.px.px_utils.ApkAutoUpdate.ApkDownloadAndInstall.ApkAutoUpdateManager;
-import com.px.px_utils.ApkAutoUpdate.ApkDownloadAndInstall.ApkFileDownloadInfo;
-import com.px.px_utils.ApkAutoUpdate.ApkDownloadAndInstall.ApkFileDownloadStatusListener;
-import com.px.px_utils.ApkAutoUpdate.Utils.ApkInstall;
-import com.px.px_utils.ApkAutoUpdate.Utils.ApkCheck;
-import com.px.px_utils.ApkAutoUpdate.Utils.SystemConfig;
+import com.px.px_utils.ApkDownloadAndInstall.ApkAutoUpdateManager;
+import com.px.px_utils.ApkDownloadAndInstall.ApkFileDownloadInfo;
+import com.px.px_utils.ApkDownloadAndInstall.ApkFileDownloadStatusListener;
+import com.px.px_utils.Utils.ApkInstall;
+import com.px.px_utils.Utils.ApkCheck;
+import com.px.px_utils.Utils.NetworkStatusReceiver;
+import com.px.px_utils.Utils.SystemConfig;
 
 /**
  *  demo for download and install module;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Button bt_Start , bt_Stop;
     private ProgressBar progressBar;
     private ApkAutoUpdateManager apkAutoUpdateManager;
+    private NetworkStatusReceiver networkStatusReceiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,5 +111,15 @@ public class MainActivity extends AppCompatActivity {
                 apkAutoUpdateManager.pauseDownload();
             }
         });
+
+        networkStatusReceiver = new NetworkStatusReceiver();
+        IntentFilter intentFilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+        registerReceiver(networkStatusReceiver ,intentFilter );
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(networkStatusReceiver);
     }
 }
