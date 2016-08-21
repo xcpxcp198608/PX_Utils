@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.px.px_utils.ApkAutoUpdate.ApkDownloadAndInstall.ApkAutoUpdateManager;
 import com.px.px_utils.ApkAutoUpdate.ApkDownloadAndInstall.ApkFileDownloadInfo;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         apkFileDownloadInfo.setApkFileName("com.smule.singandroid.apk");
         apkFileDownloadInfo.setApkFileDownloadUrl("http://bmob-cdn-5452.b0.upaiyun.com/2016/08/10/9c33565e40121243804386c2a6dd0277.apk");
         apkFileDownloadInfo.setApkVersionCode(377);
-        apkAutoUpdateManager = new ApkAutoUpdateManager(apkFileDownloadInfo , MainActivity.this);
+        apkAutoUpdateManager = new ApkAutoUpdateManager(MainActivity.this);
 
         bt_Start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                         (ApkCheck.getInstalledApkVersionCode(MainActivity.this ,apkFileDownloadInfo.getApkPackageName())
                                 >= apkFileDownloadInfo.getApkVersionCode())){
                     //启动apk主activity ....
+                    Toast.makeText(MainActivity.this , "apk already installed" ,Toast.LENGTH_LONG).show();
                     return;
                 }
                 //判断需要下载的文件是否已经存在并且版本大于等于准备安装的版本
@@ -61,13 +63,15 @@ public class MainActivity extends AppCompatActivity {
                     //判断系统是否ROOT，是的话执行后台静默安装 ， 否则执行正常安装
                     if(SystemConfig.isRoot()){
                         ApkInstall.silentInstallApk(MainActivity.this ,apkFilePath+apkFileDownloadInfo.getApkFileName());
+                        Toast.makeText(MainActivity.this , "apk already exists ,installing in background" ,Toast.LENGTH_LONG).show();
                     }else {
+                        Toast.makeText(MainActivity.this , "apk already exists ,please install" ,Toast.LENGTH_LONG).show();
                         ApkInstall.installApk(MainActivity.this ,apkFilePath , apkFileDownloadInfo.getApkFileName());
                     }
                     return;
                 }
                 //下载准备安装的apk文件
-                apkAutoUpdateManager.startDownload();
+                apkAutoUpdateManager.startDownload(apkFileDownloadInfo);
                 apkAutoUpdateManager.setDownloadStatusListener(new ApkFileDownloadStatusListener() {
                     @Override
                     public void startDownload(boolean isStart, String apkFileSize) {

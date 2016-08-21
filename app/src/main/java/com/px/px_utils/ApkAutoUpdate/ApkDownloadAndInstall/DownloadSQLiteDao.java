@@ -52,7 +52,7 @@ public class DownloadSQLiteDao implements IDownloadSQLiteDao {
     @Override
     public void insertOrUpdateData(ApkFileDownloadInfo apkFileDownloadInfo) {
         if(isExists(apkFileDownloadInfo.getApkFileName() , apkFileDownloadInfo.getApkFileDownloadUrl())){
-            updateData(apkFileDownloadInfo.getApkFileName() , apkFileDownloadInfo.getApkFileDownloadUrl());
+            updateData(apkFileDownloadInfo);
         }else {
             insertData(apkFileDownloadInfo);
         }
@@ -118,12 +118,11 @@ public class DownloadSQLiteDao implements IDownloadSQLiteDao {
     }
 
     @Override
-    public void updateData(String apkFileName, String apkFileDownloadUrl) {
+    public void updateData(ApkFileDownloadInfo apkFileDownloadInfo) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put("apkFileName" , apkFileName);
-        contentValues.put("apkFileDownloadUrl" , apkFileDownloadUrl);
+        contentValues.put("downloadCompletedPosition" , apkFileDownloadInfo.getDownloadCompletedPosition());
         sqLiteDatabase.update(DownloadSQLiteHelper.TABLE_NAME ,contentValues , "apkFileName=? and apkFileDownloadUrl=?" ,
-                new String [] {apkFileName , apkFileDownloadUrl});
+                new String [] {apkFileDownloadInfo.getApkFileName() , apkFileDownloadInfo.getApkFileDownloadUrl()});
         contentValues.clear();
     }
 

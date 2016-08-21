@@ -77,7 +77,8 @@ public class ApkFileDownloadTask implements Runnable {
             apkFileDownloadInfo = downloadSQLiteDao.queryDataByApkName(apkFileDownloadInfo.getApkFileName() ,
                     apkFileDownloadInfo.getApkFileDownloadUrl()).get(0);
         }
-        //Log.d("----px----",apkFileDownloadInfo.getApkFileDownloadUrl());
+        Log.d("----px----",apkFileDownloadInfo.getApkFileDownloadUrl());
+        isPauseDownload = false;
         HttpURLConnection httpURLConnection = null;
         RandomAccessFile randomAccessFile = null;
         InputStream inputStream = null;
@@ -96,7 +97,6 @@ public class ApkFileDownloadTask implements Runnable {
                 return;
             }else {
                 handler.obtainMessage(MSG_START_DOWNLOAD , FormatNumber.long2Mb(httpURLConnection.getContentLength())).sendToTarget();
-                downloadSQLiteDao.insertData(apkFileDownloadInfo);
             }
             File dir = new File(apkFilePath);
             if(! dir.exists()) {
@@ -121,15 +121,16 @@ public class ApkFileDownloadTask implements Runnable {
                     handler.obtainMessage(MSG_PROGRESS_CHANGED ,progress).sendToTarget();
                 }
                 if(isPauseDownload){
+                    apkFileDownloadInfo.setDownloadCompletedPosition(completedPosition);
                     downloadSQLiteDao.insertOrUpdateData(apkFileDownloadInfo);
                     handler.obtainMessage(MSG_PAUSE_DOWNLOAD ).sendToTarget();
                     return;
                 }
             }
+            handler.obtainMessage(MSG_COMPLETED_DOWNLOAD).sendToTarget();
             if(downloadSQLiteDao.isExists(apkFileDownloadInfo.getApkFileName() ,apkFileDownloadInfo.getApkFileDownloadUrl())){
                 downloadSQLiteDao.deleteDataByApkName(apkFileDownloadInfo.getApkFileName() ,apkFileDownloadInfo.getApkFileDownloadUrl());
             }
-            handler.obtainMessage(MSG_COMPLETED_DOWNLOAD).sendToTarget();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {

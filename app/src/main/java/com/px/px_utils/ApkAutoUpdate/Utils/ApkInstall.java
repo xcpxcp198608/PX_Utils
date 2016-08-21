@@ -28,7 +28,7 @@ public class ApkInstall {
             return false;
         }
     }
-
+    //正常安装apk
     public static void installApk (Context context , String apkFilePath , String apkFileName){
         File file = new File(apkFilePath, apkFileName);
         if(file != null) {

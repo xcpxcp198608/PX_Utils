@@ -12,6 +12,6 @@ public interface IDownloadSQLiteDao {
     void deleteAllData();
     List<ApkFileDownloadInfo> queryDataByApkName (String apkFileName , String apkFileDownloadUrl);
     List<ApkFileDownloadInfo> queryAllData ();
-    void updateData (String apkFileName , String apkFileDownloadUrl);
+    void updateData (ApkFileDownloadInfo apkFileDownloadInfo);
     boolean isExists (String apkFileName , String apkFileDownloadUrl);
 }

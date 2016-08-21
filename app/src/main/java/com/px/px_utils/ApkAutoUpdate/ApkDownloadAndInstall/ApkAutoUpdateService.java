@@ -22,6 +22,7 @@ public class ApkAutoUpdateService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        Log.d("----px----","service start");
         Future<?> future = threadPoolExecutor.submit(new ApkFileDownloadTask(getApplicationContext() , (ApkFileDownloadInfo) intent.getSerializableExtra("apkFileDownloadInfo")));
     }
 }

@@ -10,14 +10,12 @@ import android.util.Log;
 public class ApkAutoUpdateManager {
 
     private Context context;
-    private ApkFileDownloadInfo apkFileDownloadInfo;
 
-    public ApkAutoUpdateManager(ApkFileDownloadInfo apkFileDownloadInfo, Context context) {
-        this.apkFileDownloadInfo = apkFileDownloadInfo;
+    public ApkAutoUpdateManager(Context context) {
         this.context = context;
     }
 
-    public void startDownload () {
+    public void startDownload (ApkFileDownloadInfo apkFileDownloadInfo) {
         Intent intent = new Intent(context , ApkAutoUpdateService.class);
         intent.putExtra("apkFileDownloadInfo" ,apkFileDownloadInfo);
         context.startService(intent);
