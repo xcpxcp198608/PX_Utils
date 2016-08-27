@@ -16,6 +16,7 @@ public class ApkInstall {
 
     /**
      * 后台静默安装已有的apk文件
+     * 需要添加依赖：compile 'cn.trinea.android.common:trinea-android-common:4.2.15'
      * @param context
      * @param apkFileFullPath apk文件的完整路径（文件夹路径+文件完整名称-带后缀名字）
      * @return

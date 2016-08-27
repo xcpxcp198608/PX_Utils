@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".ApkDownloadAndInstall.ApkAutoUpdateService" />
+        <service android:name= ".FileDownload.DownloadService" />
         <receiver android:name=".Utils.NetworkStatusReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>

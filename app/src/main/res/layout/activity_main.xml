@@ -8,6 +8,12 @@
     tools:context="com.px.px_utils.MainActivity">
 
     <TextView
+        android:text="Demo of file download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginTop="10dp"
         android:id="@+id/tv_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -29,6 +35,7 @@
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
 
 
 </LinearLayout>
