@@ -3,6 +3,7 @@
     package="com.px.px_utils">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -11,8 +12,9 @@
         android:icon="@mipmap/px_utils_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:name=".Application"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activity.BootActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,11 +23,11 @@
         </activity>
 
         <service android:name= ".FileDownload.DownloadService" />
-        <receiver android:name=".Utils.NetworkStatusReceiver">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-            </intent-filter>
-        </receiver>
+
+        <activity android:name=".Activity.Demo_OkHttp" />
+        <activity android:name=".Activity.Demo_File_Download" />
+        <activity android:name=".Activity.Demo_Json" />
+
     </application>
 
 </manifest>

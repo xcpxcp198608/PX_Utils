@@ -11,4 +11,8 @@ public final class C {
         public static final int PROGRESS_CHANGE_DOWNLOAD_FILE = 0X10004;
 
     }
+
+    public static final class url {
+        public static final String URL_JSON_IMAGE = "http://158.69.229.104:8090/json/RollViewImageInfo.json";
+    }
 }

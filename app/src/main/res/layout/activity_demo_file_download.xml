@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context="com.px.px_utils.MainActivity">
+    tools:context=".Activity.Demo_File_Download">
 
     <TextView
         android:text="Demo of file download"

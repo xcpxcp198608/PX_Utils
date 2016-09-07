@@ -72,6 +72,20 @@ public class ApkCheck {
         return apkVersionCode;
     }
 
+    //通过包名和版本编号判断更新apk是否需要
+    public static boolean isApkNeedUpdate (Context context ,String apkPackageName ,int versionCode) {
+        if(ApkCheck.isApkInstalled(context , apkPackageName)) {
+            int localVersionCode = ApkCheck.getInstalledApkVersionCode(context,apkPackageName);
+            if(versionCode > localVersionCode){
+                return true;
+            }else {
+                return false;
+            }
+        }else {
+            return true;
+        }
+    }
+
     //通过file path 和 file full name 判断apk 安装文件是否存在
     public static boolean isApkFileExists(String apkFilePath ,String apkFileFullName ){
         try {

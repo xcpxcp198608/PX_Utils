@@ -23,6 +23,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'cn.trinea.android.common:trinea-android-common:4.2.15' //silent install
-
+    compile 'cn.trinea.android.common:trinea-android-common:4.2.15'
+    //silent install
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
 }

@@ -151,6 +151,9 @@ public class DownloadTask implements Runnable {
                 if(httpURLConnection!= null) {
                     httpURLConnection.disconnect();
                 }
+                if(httpURLConnection1!= null) {
+                    httpURLConnection1.disconnect();
+                }
                 if(randomAccessFile!= null) {
                     randomAccessFile.close();
                 }

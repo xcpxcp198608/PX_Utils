@@ -1,7 +1,6 @@
-package com.px.px_utils;
+package com.px.px_utils.Activity;
 
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,25 +10,26 @@ import android.widget.TextView;
 import com.px.px_utils.FileDownload.DownloadFileInfo;
 import com.px.px_utils.FileDownload.DownloadManager;
 import com.px.px_utils.FileDownload.DownloadStatusListener;
+import com.px.px_utils.R;
 
 /**
  *  demo of file download;
  */
-public class MainActivity extends AppCompatActivity {
+public class Demo_File_Download extends BaseActivity {
     private final String filePath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/PxDownload/";//路径设置不可更改
 
     private TextView tv_Status;
     private Button bt_Start , bt_Stop;
     private ProgressBar progressBar;
 
-//    private String url = "ftp://wiatecftp:Wil654321@158.69.229.104/AppMarket/video/btvi3.mp4";
-    private String url = "http://bmob-cdn-5452.b0.upaiyun.com/2016/08/25/3d91e1e94063532080ed4960365aa146.apk";
+    private String url = "http://158.69.229.104:8090/apk/ccleaner.apk";
+//    private String url = "http://bmob-cdn-5452.b0.upaiyun.com/2016/08/25/3d91e1e94063532080ed4960365aa146.apk";
     private DownloadFileInfo downloadFileInfo;
     private DownloadManager downloadManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_demo_file_download);
 
         tv_Status = (TextView) findViewById(R.id.tv_status);
         bt_Start = (Button) findViewById(R.id.bt_start);
@@ -37,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         downloadFileInfo = new DownloadFileInfo();
-        downloadFileInfo.setFileFullName("tv2.0.apk");
+        downloadFileInfo.setFileFullName("ccleaner.apk");
         downloadFileInfo.setFileDownloadUrl(url);
-        downloadManager = new DownloadManager(MainActivity.this);
+        downloadManager = new DownloadManager(Demo_File_Download.this);
         downloadManager.setDownloadStatusListener(new DownloadStatusListener() {
             @Override
             public void startDownload(boolean isStart, long fileLength) {
